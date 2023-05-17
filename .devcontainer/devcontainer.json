@@ -1,0 +1,35 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.194.0/containers/docker-existing-dockerfile
+{
+	"name": "OhMyEnvForRust",
+	"context": "..",
+	"dockerFile": "./Dockerfile",
+	"settings": {},
+	"extensions": [
+		"rust-analyzer",
+	],
+	"runArgs": [
+		// "--dns=114.114.114.114",
+		"--network=network1"
+	],
+	"containerEnv": {
+		"DISPLAY": "host.docker.internal:0.0"
+	},
+	"mounts": [
+		"source=config-rust,target=/root/.config,type=volume",
+		"source=vscode-extensions-rust,target=/root/.vscode-server/extensions,type=volume",
+		"source=ssh-rust,target=/root/.ssh,type=volume",
+		"source=cargo-rust,target=/root/.cargo,type=volume",
+		//
+		// 修改之前请看一下上面内容是否已经包含你需要的挂载
+		// 重复挂载将导致容器启动失败！
+		//
+		"source=repos-rust,target=/root/repos,type=volume"
+	],
+	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+	// "shutdownAction": "none",
+	"remoteUser": "root"
+	// "overrideCommand": false,
+	// "forwardPorts": [],
+	// "postCreateCommand": "apt-get update && apt-get install -y curl",
+}
